@@ -1,0 +1,8 @@
+{
+  "name":"gqpublicip",
+  "main":"index.js",
+  "dependencies":{
+  },
+  "license":"MIT",
+  "private":false
+}
