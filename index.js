@@ -5,12 +5,22 @@
   https = require('https');
 
   this.getPublicIp = function(cb) {
+    var req;
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    return https.get('https://bot.whatismyipaddress.com', function(res) {
+    req = https.get('https://bot.whatismyipaddress.com', function(res) {
       res.setEncoding('utf8');
-      return res.on('data', function(chunk) {
+      res.on('data', function(chunk) {
         return cb(null, chunk);
       });
+      return res.on('error', function(e) {
+        return cb(null, "unknown");
+      });
+    });
+    req.on('error', function(e) {
+      return cb(null, "unknown");
+    });
+    return req.setTimeout(3000, function() {
+      return req.destroy();
     });
   };
 
