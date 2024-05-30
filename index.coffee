@@ -1,8 +1,15 @@
 myIP=require 'my-ip'
-module.exports=(o,cb)->
+exports.getPublicIp=(o,cb)->
   ip=null
   try
     ip=myIP()
+    cb null,ip
+  catch e
+    cb e
+exports.getPrivateIp=(o,cb)->
+  ip=null
+  try
+    ip=myIP(null,true)
     cb null,ip
   catch e
     cb e

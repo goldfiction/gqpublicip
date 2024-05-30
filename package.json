@@ -8,6 +8,7 @@
   "private": false,
   "version": "0.0.4",
   "versions": {
+    "0.0.5": "restore original function names",
     "0.0.4": "fixed a broken dependency",
     "0.0.3": "config timeout to 3 seconds to speed up failed cases",
     "0.0.2": "added error handling for no network connectivity",
