@@ -6,8 +6,9 @@
   },
   "license": "MIT",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "versions": {
+    "0.0.6": "fixed public ip route",
     "0.0.5": "restore original function names",
     "0.0.4": "fixed a broken dependency",
     "0.0.3": "config timeout to 3 seconds to speed up failed cases",
