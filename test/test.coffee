@@ -25,23 +25,19 @@ it "should be able to get public ip2",(done)->
 #    done e
 
 it "should be able to get public ip3",(done)->
-  console.log 'dropped this path'
-  done()
-#  gqpublicip.getPublicIp3 null,(e,ip)->
-#    console.log ip
-#    assert ip
-#    done e
+  gqpublicip.getPublicIp3 null,(e,ip)->
+    console.log ip
+    assert ip==ip1
+    done e
 
 it "should be able to get public ip4",(done)->
   gqpublicip.getPublicIp4 null,(e,ip)->
     console.log ip
-    assert ip
     assert ip==ip1
     done e
 
 it "should be able to get public ip5",(done)->
   gqpublicip.getPublicIp5 null,(e,ip)->
     console.log ip
-    assert ip
     assert ip==ip1
     done e

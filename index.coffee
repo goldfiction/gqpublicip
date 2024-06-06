@@ -1,6 +1,7 @@
 myIP = require 'my-ip'
 http = require 'http'
 needle = require 'needle'
+request = require 'request'
 
 exports.getPublicIp=(o,cb)->
   needle.get 'http://myexternalip.com/raw',(e,r)->
@@ -41,14 +42,15 @@ exports.getPublicIp2=(o,cb)->
 
 
 exports.getPublicIp3=(o,cb)->
-  options=
-    json:true
-  needle.get 'http://api.ipfy.org',options,(e,r)->
-    if(!e && r.statusCode==200)
-      #console.log r.body.ip
-      cb null,r.body.ip
+  requestData=
+    followAllRedirects:true
+    url:'http://api.ipfy.org'
+  request requestData,(e,r,b)->
+    if !e
+      console.log b
+      cb null,b
     else
-      #console.log e.message
+      console.log e.message
       cb null,'unknown'
 
 exports.getPublicIp4=(o,cb)->

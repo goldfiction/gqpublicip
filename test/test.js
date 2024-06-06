@@ -35,18 +35,16 @@
   //    assert ip
   //    done e
   it("should be able to get public ip3", function(done) {
-    console.log('dropped this path');
-    return done();
+    return gqpublicip.getPublicIp3(null, function(e, ip) {
+      console.log(ip);
+      assert(ip === ip1);
+      return done(e);
+    });
   });
 
-  //  gqpublicip.getPublicIp3 null,(e,ip)->
-  //    console.log ip
-  //    assert ip
-  //    done e
   it("should be able to get public ip4", function(done) {
     return gqpublicip.getPublicIp4(null, function(e, ip) {
       console.log(ip);
-      assert(ip);
       assert(ip === ip1);
       return done(e);
     });
@@ -55,7 +53,6 @@
   it("should be able to get public ip5", function(done) {
     return gqpublicip.getPublicIp5(null, function(e, ip) {
       console.log(ip);
-      assert(ip);
       assert(ip === ip1);
       return done(e);
     });
