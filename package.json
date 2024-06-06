@@ -2,12 +2,17 @@
   "name": "gqpublicip",
   "main": "index.js",
   "dependencies": {
-    "my-ip": "^1.1.1"
+    "my-ip": "1.1.1",
+    "needle": "3.3.1"
+  },
+  "scripts": {
+    "test": "mocha -t 20000"
   },
   "license": "MIT",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "versions": {
+    "0.0.7": "added 5 more routes for public ip",
     "0.0.6": "fixed public ip route",
     "0.0.5": "restore original function names",
     "0.0.4": "fixed a broken dependency",

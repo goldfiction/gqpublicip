@@ -1,27 +1,71 @@
-myIP=require 'my-ip'
-http=require 'http'
+myIP = require 'my-ip'
+http = require 'http'
+needle = require 'needle'
+
 exports.getPublicIp=(o,cb)->
-  ip=''
-  try
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-    req=http.get 'http://myexternalip.com/raw',(res)->
-      res.setEncoding 'utf8'
-      res.on 'data',(chunk)->
-        ip+=chunk
-      res.on 'end',()->
-        cb null,ip
-      res.on 'error',(e)->
-        cb null,'unknown'
-      req.on 'error',(e)->
-        cb null,'unknown'
-      req.setTimeout 3000,()->
-        req.destroy()
-  catch e
-    cb e
+  needle.get 'http://myexternalip.com/raw',(e,r)->
+    if(!e && r.statusCode==200)
+      cb null,r.body
+    else
+      cb null,'unknown'
+
 exports.getPrivateIp=(o,cb)->
-  ip=null
   try
-    ip=myIP(null,true)
+    ip=myIP()
     cb null,ip
   catch e
-    cb e
+    cb null,'unknown'
+
+exports.getPublicIp2=(o,cb)->
+  # not working, dropped
+  html=""
+  needle.get "https://whatismyipaddress.com",options
+    .on 'readable',()->
+      while data=this.read()
+        html+=data.toString()
+    .on 'done',(e)->
+      if !e
+        try
+          ip='unknown'
+          #console.log html
+          #dom=new jsdom.JSDOM html
+          #ip=dom.window.document.getElementById("ipv4")
+          #console.log ip.innerHTML
+          cb null,ip
+        catch e2
+          console.log e2.message
+          cb null,'unknown'
+      else
+        console.log e.message
+        cb null,'unknown'
+
+
+exports.getPublicIp3=(o,cb)->
+  options=
+    json:true
+  needle.get 'http://api.ipfy.org',options,(e,r)->
+    if(!e && r.statusCode==200)
+      #console.log r.body.ip
+      cb null,r.body.ip
+    else
+      #console.log e.message
+      cb null,'unknown'
+
+exports.getPublicIp4=(o,cb)->
+  options=
+    json:true
+  needle.get 'https://api.ipregistry.co/?key=tryout',options,(e,r)->
+    if(!e && r.statusCode==200)
+      #console.log r.body.ip
+      cb null,r.body.ip
+    else
+      #console.log e.message
+      cb null,'unknown'
+
+exports.getPublicIp5=(o,cb)->
+  needle.get 'https://api.seeip.org/jsonip?',(e,r)->
+    if(!e && r.statusCode==200)
+      #console.log r.body.ip
+      cb null,r.body.ip
+    else
+      cb null,'unknown'
